@@ -1,6 +1,10 @@
+import { nanoid } from "@reduxjs/toolkit";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addNewPost } from "./postSlice";
 
 const PostForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({ title: "", content: "" });
 
   const onFormChange = (e) => {
@@ -13,7 +17,7 @@ const PostForm = () => {
   };
 
   const onFormSubmit = () => {
-    console.log(form);
+    dispatch(addNewPost({ ...form, id: nanoid() }));
   };
 
   return (
