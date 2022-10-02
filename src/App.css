@@ -19,6 +19,7 @@ button {
   margin: 10px 15px;
   color: #fff;
   font: inherit;
+  cursor: pointer;
   border-radius: 5px;
 }
 
@@ -26,19 +27,39 @@ button:active {
   background-color: #7e57c2;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 article {
   border: 1px solid #5e35b1;
-  padding: 10px;
-  border-radius: 20px;
+  padding: 12px;
+  border-radius: 16px;
   min-width: 350px;
   margin-bottom: 20px;
 }
 
-input {
+input,
+textarea {
   padding: 15px;
   background-color: #ede7f6;
   border: 1px solid #d1c4e9;
   border-radius: 4px;
+  font: inherit;
+  resize: none;
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #5e35b1;
+}
+
+label {
+  margin-bottom: 5px;
 }
 
 .App {
