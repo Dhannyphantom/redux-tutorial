@@ -1,6 +1,6 @@
 import "./App.css";
-import PostForm from "./logic/PostForm";
-import PostRender from "./logic/PostRender";
+import PostForm from "./logic/posts/PostForm";
+import PostRender from "./logic/posts/PostRender";
 
 function App() {
   return (

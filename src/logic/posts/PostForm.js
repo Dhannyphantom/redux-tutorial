@@ -1,13 +1,24 @@
-import { nanoid } from "@reduxjs/toolkit";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { usersSelector } from "../users/usersSlice";
 import { addNewPost } from "./postSlice";
 
-const initials = { title: "", content: "" };
+const initials = { title: "", content: "", userId: "" };
 
 const PostForm = () => {
   const dispatch = useDispatch();
+  const users = useSelector(usersSelector);
+
   const [form, setForm] = useState(initials);
+
+  const usersDropdown = users.map((user) => {
+    return (
+      <option key={user.id} value={user.id}>
+        {user.name}
+      </option>
+    );
+  });
+  const validator = Object.values(form).every((str) => Boolean(str));
 
   const onFormChange = (e) => {
     setForm((prev) => {
@@ -19,9 +30,9 @@ const PostForm = () => {
   };
 
   const onFormSubmit = () => {
-    const validator = Object.values(form).every((str) => Boolean(str));
+    // return console.log(form);
     if (!validator) return;
-    dispatch(addNewPost({ ...form, id: nanoid() }));
+    dispatch(addNewPost(form));
     setForm(initials);
   };
 
@@ -29,7 +40,7 @@ const PostForm = () => {
     <section>
       <h2>New Post</h2>
       <form>
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Title: </label>
         <input
           name="title"
           type="text"
@@ -37,7 +48,12 @@ const PostForm = () => {
           value={form.title}
           onChange={(e) => onFormChange(e)}
         />
-        <label htmlFor="content">Content</label>
+        <label htmlFor="userId">Author: </label>
+        <select onChange={onFormChange} id="userId" name="userId">
+          <option value=""></option>
+          {usersDropdown}
+        </select>
+        <label htmlFor="content">Content: </label>
         <textarea
           name="content"
           id="content"
@@ -45,7 +61,7 @@ const PostForm = () => {
           value={form.content}
           onChange={(e) => onFormChange(e)}
         ></textarea>
-        <button type="button" onClick={onFormSubmit}>
+        <button disabled={!validator} type="button" onClick={onFormSubmit}>
           Save Post
         </button>
       </form>

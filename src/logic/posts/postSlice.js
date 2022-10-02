@@ -17,8 +17,15 @@ const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addNewPost(state, action) {
-      state.push(action.payload);
+    addNewPost: {
+      reducer(state, action) {
+        state.push(action.payload);
+      },
+      prepare(form) {
+        return {
+          payload: { ...form, id: nanoid() },
+        };
+      },
     },
   },
 });
