@@ -35,9 +35,14 @@ form {
 article {
   border: 1px solid #5e35b1;
   padding: 12px;
-  border-radius: 16px;
-  min-width: 350px;
+  border-radius: 12px;
+  width: 365px;
   margin-bottom: 20px;
+}
+
+article > h4::first-letter,
+article > p::first-letter {
+  text-transform: uppercase;
 }
 
 input,

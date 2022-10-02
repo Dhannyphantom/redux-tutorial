@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewPost } from "./postSlice";
 
+const initials = { title: "", content: "" };
+
 const PostForm = () => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ title: "", content: "" });
+  const [form, setForm] = useState(initials);
 
   const onFormChange = (e) => {
     setForm((prev) => {
@@ -17,7 +19,10 @@ const PostForm = () => {
   };
 
   const onFormSubmit = () => {
+    const validator = Object.values(form).every((str) => Boolean(str));
+    if (!validator) return;
     dispatch(addNewPost({ ...form, id: nanoid() }));
+    setForm(initials);
   };
 
   return (
