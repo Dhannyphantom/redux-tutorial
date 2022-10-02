@@ -16,15 +16,16 @@ const Counter = () => {
   return (
     <div className="App">
       <h1> {count} </h1>
+
+      <div className="row">
+        <button onClick={() => dispatch(increment())}> Increment </button>
+        <button onClick={() => dispatch(decrement())}> Decrement </button>
+      </div>
       <input
         type="number"
         value={amount}
         onChange={(e) => setAmount(Number(e.target.value))}
       />
-      <div className="row">
-        <button onClick={() => dispatch(increment())}> Increment </button>
-        <button onClick={() => dispatch(decrement())}> Decrement </button>
-      </div>
       <div className="row">
         <button onClick={() => dispatch(incrementBy(amount))}>
           Increment By
