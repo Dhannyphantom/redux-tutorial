@@ -22,6 +22,13 @@ button {
   border-radius: 5px;
 }
 
+input {
+  padding: 15px;
+  background-color: #ede7f6;
+  border: 1px solid #d1c4e9;
+  border-radius: 4px;
+}
+
 .App {
   display: flex;
   flex-direction: column;
