@@ -83,3 +83,8 @@ label {
   display: flex;
   flex-direction: row;
 }
+
+.emoji {
+  margin: 10px 1px 2px 10px;
+  cursor: pointer;
+}
