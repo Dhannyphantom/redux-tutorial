@@ -49,7 +49,12 @@ const PostForm = () => {
           onChange={(e) => onFormChange(e)}
         />
         <label htmlFor="userId">Author: </label>
-        <select onChange={onFormChange} id="userId" name="userId">
+        <select
+          onChange={onFormChange}
+          id="userId"
+          value={form.userId}
+          name="userId"
+        >
           <option value=""></option>
           {usersDropdown}
         </select>

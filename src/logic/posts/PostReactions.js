@@ -16,6 +16,7 @@ const PostReactions = ({ reactions, postId }) => {
     return (
       <div
         onClick={() => dispatch(updateReaction({ reaction: emoji, postId }))}
+        key={emoji}
         className="row emoji"
       >
         <span> {reactions_lookup[emoji]} </span>
