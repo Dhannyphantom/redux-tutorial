@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usersSelector } from "../users/usersSlice";
-import { addNewPost } from "./postSlice";
+import { addANewPost } from "./postSlice";
 
 const initials = { title: "", content: "", userId: "" };
 
@@ -32,7 +32,7 @@ const PostForm = () => {
   const onFormSubmit = () => {
     // return console.log(form);
     if (!validator) return;
-    dispatch(addNewPost(form));
+    dispatch(addANewPost(form));
     setForm(initials);
   };
 

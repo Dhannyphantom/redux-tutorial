@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { sub } from "date-fns";
 import axios from "axios";
 
-const POSTS_URI = "https:jsonplaceholder.typicode.com/posts";
+const POSTS_URI = "https://jsonplaceholder.typicode.com/posts";
 
 const reactions_obj = {
   thumb: 0, //👊
@@ -22,6 +22,17 @@ export const fetchPosts = createAsyncThunk("posts/fetchAllPosts", async () => {
   const res = await axios.get(POSTS_URI);
   return res.data;
 });
+
+export const addANewPost = createAsyncThunk(
+  "posts/addANewPost",
+  async (post_data) => {
+    post_data.body = post_data.content;
+    delete post_data.content;
+    const res = await axios.post(POSTS_URI, post_data);
+
+    return res.data;
+  }
+);
 
 const postSlice = createSlice({
   name: "posts",
@@ -71,6 +82,13 @@ const postSlice = createSlice({
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
+    });
+    builder.addCase(addANewPost.fulfilled, (state, action) => {
+      action.payload.reactions = reactions_obj;
+      action.payload.date = new Date().toISOString();
+      action.payload.userId = Number(action.payload.userId);
+
+      state.posts.push(action.payload);
     });
   },
 });
