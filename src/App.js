@@ -10,9 +10,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<PostRender />} />
-        <Route path="/post">
+        <Route path="post">
           <Route index element={<PostForm />} />
-          <Route path=":/postId" element={<SinglePostPage />} />
+          <Route path=":postId" element={<SinglePostPage />} />
         </Route>
       </Route>
     </Routes>
