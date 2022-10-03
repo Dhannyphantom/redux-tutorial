@@ -79,6 +79,32 @@ label {
   margin-bottom: 5px;
 }
 
+header {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #5e35b1;
+}
+
+header > h1 {
+  color: #fff;
+  margin-left: 20px;
+}
+
+ul {
+  display: flex;
+}
+
+ul > li {
+  list-style: none;
+  margin-right: 15px;
+}
+
+.link {
+  color: #d1c4e9;
+}
+
 .App {
   display: flex;
   flex-direction: column;
