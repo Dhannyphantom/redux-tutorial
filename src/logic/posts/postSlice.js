@@ -34,6 +34,15 @@ export const addANewPost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk("posts/updatePost", async (post) => {
+  post.form.body = post.form.content;
+
+  delete post.form.body;
+  const res = await axios.put(`${POSTS_URI}/${post.postId}`, post.form);
+
+  return res.data;
+});
+
 const postSlice = createSlice({
   name: "posts",
   initialState,
@@ -89,6 +98,21 @@ const postSlice = createSlice({
       action.payload.userId = Number(action.payload.userId);
 
       state.posts.push(action.payload);
+    });
+    builder.addCase(updatePost.fulfilled, (state, action) => {
+      action.payload.reactions = reactions_obj;
+      action.payload.date = new Date().toISOString();
+      action.payload.userId = Number(action.payload.userId);
+
+      const updatedPosts = state.posts.map((post) => {
+        if (post.id === action.payload.id) {
+          post = action.payload;
+        }
+
+        return post;
+      });
+
+      state.posts = updatedPosts;
     });
   },
 });

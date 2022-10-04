@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getPostById } from "../logic/posts/postSlice";
-import PostAuthor from "../logic/posts/PostAuthor";
-import TimeAgo from "../logic/posts/TimeAgo";
-import PostReactions from "../logic/posts/PostReactions";
+import { Link, useParams } from "react-router-dom";
+import { getPostById } from "./postSlice";
+import PostAuthor from "./PostAuthor";
+import TimeAgo from "./TimeAgo";
+import PostReactions from "./PostReactions";
 
 const SinglePostPage = () => {
   const { postId } = useParams();
@@ -25,6 +25,7 @@ const SinglePostPage = () => {
         <h4> {post.title} </h4>
         <p> {post.body} </p>
         <small>
+          <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
           <PostAuthor userId={post.userId} />
           <TimeAgo timestamp={post.date} />
         </small>
