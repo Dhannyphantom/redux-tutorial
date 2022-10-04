@@ -35,10 +35,10 @@ export const addANewPost = createAsyncThunk(
 );
 
 export const updatePost = createAsyncThunk("posts/updatePost", async (post) => {
-  post.form.body = post.form.content;
+  post.body = post.content;
 
-  delete post.form.body;
-  const res = await axios.put(`${POSTS_URI}/${post.postId}`, post.form);
+  delete post.content;
+  const res = await axios.put(`${POSTS_URI}/${post.id}`, post);
 
   return res.data;
 });
@@ -100,12 +100,12 @@ const postSlice = createSlice({
       state.posts.push(action.payload);
     });
     builder.addCase(updatePost.fulfilled, (state, action) => {
-      action.payload.reactions = reactions_obj;
       action.payload.date = new Date().toISOString();
       action.payload.userId = Number(action.payload.userId);
 
+      const { id } = action.payload;
       const updatedPosts = state.posts.map((post) => {
-        if (post.id === action.payload.id) {
+        if (post.id === id) {
           post = action.payload;
         }
 

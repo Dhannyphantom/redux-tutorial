@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usersSelector } from "../users/usersSlice";
 import { updatePost, getPostById } from "./postSlice";
 
@@ -11,6 +11,7 @@ const EditPostPage = () => {
   const dispatch = useDispatch();
   const users = useSelector(usersSelector);
   const post = useSelector((state) => getPostById(state, Number(postId)));
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     title: post.title,
@@ -20,7 +21,11 @@ const EditPostPage = () => {
   const [status, setStatus] = useState("idle");
 
   if (!post) {
-    return <h2>Post not found!</h2>;
+    return (
+      <section>
+        <h2>Post not found!</h2>;
+      </section>
+    );
   }
 
   const usersDropdown = users.map((user) => {
@@ -42,14 +47,17 @@ const EditPostPage = () => {
   };
 
   const onFormSubmit = () => {
-    if (!validator) return;
+    if (!validator && status === "idle") return;
     setStatus("pending");
 
     try {
-      dispatch(updatePost({ form, postId }));
+      dispatch(
+        updatePost({ id: post.id, ...form, reactions: post.reactions })
+      ).unwrap();
       setForm(initials);
+      navigate(`/post/${post.id}`);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setStatus("idle");
     }
