@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { usersSelector } from "../users/usersSlice";
-import { updatePost, getPostById } from "./postSlice";
+import { updatePost, getPostById, deletePost } from "./postSlice";
 
 const initials = { title: "", content: "", userId: "" };
 
@@ -63,6 +63,19 @@ const EditPostPage = () => {
     }
   };
 
+  const onPostDelete = () => {
+    if (status === "pending") return;
+    setStatus("pending");
+    try {
+      dispatch(deletePost({ id: post.id })).unwrap();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setStatus("idle");
+    }
+  };
+
   return (
     <section>
       <h2>Edit Post</h2>
@@ -96,6 +109,9 @@ const EditPostPage = () => {
         {status === "pending" && <i>Loading...</i>}
         <button disabled={!validator} type="button" onClick={onFormSubmit}>
           Update Post
+        </button>
+        <button type="button" onClick={onPostDelete} className="delete">
+          Delete Post
         </button>
       </form>
     </section>

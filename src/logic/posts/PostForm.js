@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { usersSelector } from "../users/usersSlice";
 import { addANewPost } from "./postSlice";
 
@@ -7,6 +8,7 @@ const initials = { title: "", content: "", userId: "" };
 
 const PostForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const users = useSelector(usersSelector);
 
   const [form, setForm] = useState(initials);
@@ -33,6 +35,7 @@ const PostForm = () => {
     if (!validator) return;
     dispatch(addANewPost(form));
     setForm(initials);
+    navigate("/");
   };
 
   return (

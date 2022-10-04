@@ -63,6 +63,10 @@ select {
   width: 300px;
 }
 
+.delete {
+  background-color: tomato;
+}
+
 input:focus,
 textarea:focus {
   outline: none;
