@@ -9,9 +9,12 @@ const UserPage = () => {
   const { userId } = useParams();
 
   const user = useSelector((state) => getUserById(state, userId));
-  const posts = useSelector(postsSelector);
 
-  const userPosts = posts.filter((post) => post.userId === Number(userId));
+  const userPosts = useSelector((state) => {
+    const posts = postsSelector(state);
+
+    return posts.filter((post) => post.userId === Number(userId));
+  });
 
   const renderPosts = userPosts.map((post) => (
     <li>

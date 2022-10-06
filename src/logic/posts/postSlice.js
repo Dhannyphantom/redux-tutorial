@@ -16,6 +16,7 @@ const initialState = {
   posts: [],
   status: "idle", // idle | loading | succeeded | failed
   error: null,
+  count: 0,
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchAllPosts", async () => {
@@ -79,6 +80,9 @@ const postSlice = createSlice({
         post.reactions[reaction]++;
       }
     },
+    increaseCount(state) {
+      state.count += 1;
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchPosts.pending, (state, action) => {
@@ -129,9 +133,10 @@ const postSlice = createSlice({
   },
 });
 
-export const { addNewPost, updateReaction } = postSlice.actions;
+export const { addNewPost, updateReaction, increaseCount } = postSlice.actions;
 
 export const postsSelector = (state) => state.posts.posts;
+export const getCount = (state) => state.posts.count;
 export const getPostStatus = (state) => state.posts.status;
 export const getPostError = (state) => state.posts.error;
 export const getPostById = (state, postId) =>
