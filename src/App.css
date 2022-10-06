@@ -103,6 +103,19 @@ ul {
 ul > li {
   list-style: none;
   margin-right: 15px;
+  padding: 5px 0px;
+}
+
+ol > li {
+  margin: 10px 0px;
+}
+
+ol > li::first-letter {
+  text-transform: capitalize;
+}
+
+ul.users {
+  display: block;
 }
 
 .link {

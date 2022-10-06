@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import PostDetail from "./PostDetail";
 
-import {
-  fetchPosts,
-  getPostError,
-  getPostStatus,
-  postsSelector,
-} from "./postSlice";
+import { getPostError, getPostStatus, postsSelector } from "./postSlice";
 
 const PostRender = () => {
-  const dispatch = useDispatch();
   const posts = useSelector(postsSelector);
   const status = useSelector(getPostStatus);
   const error = useSelector(getPostError);
@@ -37,12 +31,6 @@ const PostRender = () => {
       content = <p>Error 419</p>;
       break;
   }
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [status, dispatch]);
 
   return (
     <section>
