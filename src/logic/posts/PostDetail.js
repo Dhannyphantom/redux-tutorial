@@ -1,11 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import PostAuthor from "./PostAuthor";
 import PostReactions from "./PostReactions";
+import { getPostById } from "./postSlice";
 import TimeAgo from "./TimeAgo";
 
-let PostDetail = ({ post }) => {
+const PostDetail = ({ postId }) => {
+  const post = useSelector((state) => getPostById(state, postId));
   return (
     <article>
       <h4> {post.title} </h4>
@@ -19,7 +22,5 @@ let PostDetail = ({ post }) => {
     </article>
   );
 };
-
-PostDetail = React.memo(PostDetail);
 
 export default PostDetail;

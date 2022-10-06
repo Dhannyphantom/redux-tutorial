@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import PostDetail from "./PostDetail";
 
-import { getPostError, getPostStatus, postsSelector } from "./postSlice";
+import { getPostError, getPostStatus, getPostIds } from "./postSlice";
 
 const PostRender = () => {
-  const posts = useSelector(postsSelector);
+  const orderedPostsIds = useSelector(getPostIds);
   const status = useSelector(getPostStatus);
   const error = useSelector(getPostError);
 
@@ -16,12 +16,8 @@ const PostRender = () => {
       content = <p>Loading...</p>;
       break;
     case "succeeded":
-      const orderedPosts = [...posts].sort((a, b) =>
-        b.date.localeCompare(a.date)
-      );
-
-      content = orderedPosts.map((post) => (
-        <PostDetail post={post} key={post.id} />
+      content = orderedPostsIds.map((postId) => (
+        <PostDetail postId={postId} key={postId} />
       ));
       break;
     case "failed":
