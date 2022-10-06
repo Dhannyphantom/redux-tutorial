@@ -5,7 +5,7 @@ import PostAuthor from "./PostAuthor";
 import PostReactions from "./PostReactions";
 import TimeAgo from "./TimeAgo";
 
-const PostDetail = ({ post }) => {
+let PostDetail = ({ post }) => {
   return (
     <article>
       <h4> {post.title} </h4>
@@ -19,5 +19,7 @@ const PostDetail = ({ post }) => {
     </article>
   );
 };
+
+PostDetail = React.memo(PostDetail);
 
 export default PostDetail;
