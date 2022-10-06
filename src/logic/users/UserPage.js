@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { getUserById } from "./usersSlice";
-import { postsSelector } from "../posts/postSlice";
+import { getPostsByUser } from "../posts/postSlice";
 import { Link, useParams } from "react-router-dom";
 
 const UserPage = () => {
@@ -10,14 +10,10 @@ const UserPage = () => {
 
   const user = useSelector((state) => getUserById(state, userId));
 
-  const userPosts = useSelector((state) => {
-    const posts = postsSelector(state);
-
-    return posts.filter((post) => post.userId === Number(userId));
-  });
+  const userPosts = useSelector((state) => getPostsByUser(state, userId));
 
   const renderPosts = userPosts.map((post) => (
-    <li>
+    <li key={post.id}>
       <Link to={`/post/${post.id}`}> {post.title} </Link>
     </li>
   ));
