@@ -148,9 +148,28 @@ ul.users {
 
 .form {
   display: flex;
-  border: 1px solid #7e57c2;
+  border: 2px solid #7e57c2;
   flex-direction: row;
   padding: 10px;
   border-radius: 8px;
   align-items: center;
+}
+
+.todo_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 460px;
+}
+
+.todo_item > input {
+  width: 50px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.todo_item > p {
+  flex: 1;
+  text-align: left;
 }

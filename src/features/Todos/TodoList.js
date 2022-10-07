@@ -1,21 +1,42 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useGetTodosQuery } from "../../api/apiSlice";
+import TodoItem from "./TodoItem";
 
 const TodoList = () => {
   const [newTodo, setNewTodo] = useState("");
 
-  const addNewTodo = () => {
+  const {
+    data: todos,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useGetTodosQuery();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     alert(newTodo);
+    setNewTodo("");
   };
 
+  const renderTodos = todos.slice(-10).map((todo) => <TodoItem todo={todo} />);
+
   let content;
+  if (isLoading) {
+    content = <p>Loading ...</p>;
+  } else if (isSuccess) {
+    content = renderTodos;
+  } else if (isError) {
+    content = <h2> {error} </h2>;
+  }
   //   do something
 
   return (
     <section>
       <h1>Todos</h1>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div>
           <input
             value={newTodo}
@@ -25,7 +46,7 @@ const TodoList = () => {
           />
         </div>
         <div>
-          <button type="button" onClick={addNewTodo}>
+          <button type="submit">
             <FontAwesomeIcon icon={solid("upload")} />
           </button>
         </div>
