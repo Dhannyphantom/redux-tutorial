@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useAddTodoMutation, useGetTodosQuery } from "../../api/apiSlice";
 import TodoItem from "./TodoItem";
-import { nanoid } from "@reduxjs/toolkit";
 
 const TodoList = () => {
   const [newTodo, setNewTodo] = useState("");
@@ -20,7 +19,8 @@ const TodoList = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo({ userId: 1, completed: false, id: nanoid(), title: newTodo });
+    if (!Boolean(newTodo)) return;
+    addTodo({ userId: 1, completed: false, title: newTodo });
     setNewTodo("");
   };
 
@@ -29,7 +29,7 @@ const TodoList = () => {
     content = <p>Loading ...</p>;
   } else if (isSuccess) {
     content = todos
-      .slice(-10)
+      .slice(0, 11)
       .map((todo) => <TodoItem key={todo.id} todo={todo} />);
   } else if (isError) {
     content = <h2> {error} </h2>;
