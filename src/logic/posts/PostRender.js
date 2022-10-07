@@ -23,7 +23,7 @@ const PostRender = () => {
       ));
       break;
     case "failed":
-      content = <p>Error occured: {error}</p>;
+      content = <p>Error has occured: {error}</p>;
       break;
     default:
       content = <p>Error 419</p>;
